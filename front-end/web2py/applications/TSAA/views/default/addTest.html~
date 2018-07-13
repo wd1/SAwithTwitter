@@ -1,0 +1,116 @@
+{{extend 'layout1.html'}}
+<style>
+
+.center-text{
+	    text-align:center;
+}
+
+label{
+	margin: -15px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
+}
+
+label.error {
+	font-weight: bold;
+	color: red;
+	padding: 0px 0px 10px 0px;
+	margin-top: -15px;
+}
+
+</style>
+<script>
+
+function Toggle1(id) {
+	var x=$('[name="TestType"]:checked').val();
+	console.log(x);
+	x=document.getElementById("optionsRadios2").checked;
+	console.log(x);
+		if(x==true)
+			$(id).show();
+		if(x==false)
+			$(id).hide();
+}
+
+</script>
+
+<div class="content">
+ <form name='Test' method="post" id="Test">
+  <br/>
+  <br/>
+  <br/>
+  <div class="row-fluid" text-align:'center'>
+    <div  class="span3">
+    </div>
+    <div  class="span6 box" style="margin:10px;padding:10px 30px 10px 30px" >
+     	<div class="control-group" style="height:60px;width:100%">
+		<label class="control-label" for="TestName">Test Name</label>
+		<div class="controls">
+			<input type="text" class="span10 line" id="TestName" name="TestName" placeholder="Test Name">
+		</div>
+	</div>
+	<div class="control-group" style="height:60px;width:100%">
+		<label class="control-label" for="Tweet">Tweet</label>
+		<div class="controls">
+			<input type="text" class="span10 line" id="Tweet" name="Tweet" placeholder="Tweet">
+		</div>
+	</div>
+	
+	<div class="control-group" style="height:60px;">
+ 		<label class="control-label" for="TestType">TestType</label>
+	        <div class="controls">
+			<label class="radio">
+                        <input type="radio" name="TestType" id="optionsRadios1" value="Sentence" onchange="Toggle1('#PhraseLevel');" checked>
+                        	Sentence	
+			</label>
+			<label class="radio">
+                        <input type="radio" name="TestType" id="optionsRadios2" value="Phrase" onchange="Toggle1('#PhraseLevel');">
+                        	Phrase
+			</label>
+        	</div>
+	</div>
+	<div style="display:none" id="PhraseLevel">
+		<div class="control-group" style="height:60px;width:100%">
+		<label class="control-label" for="Phrase">Phrase</label>
+		<div class="controls">
+			<input type="text" class="span10 line" id="Phrase" name="Phrase" placeholder="Phrase">
+		</div>
+		</div>
+	</div>
+    	<div class="action center-text">
+    		<button type="submit" class="btn btn-primary" value="Submit" name="Submit" name="Submit" >Submit</button>
+   	</div>
+    </div>  
+  </div>        
+ </form>
+</div>
+<script type="text/javascript">
+$(function () {
+
+            // add uniform plugin styles to html elements
+            $("input:checkbox, input:radio").uniform();
+
+        });
+
+$(document).ready(function(){
+		$('#Test').validate({
+		rules: {
+			Tweet: {
+				required: true
+			},
+			TestName: {
+				required: true
+			},
+			Phrase: {
+				required: true
+			}
+		},
+		highlight: function(element) {
+			$(element).closest('.control-group').removeClass('success').addClass('error');
+		},
+		success: function(element) {
+			$(element).closest('.control-group').removeClass('error').addClass('success');
+		}
+	});
+}); 
+
+</script>										     
